@@ -4,15 +4,14 @@ const {
 } = require('../models/genre');
 const auth = require('../middleware/auth')
 const admin = require('../middleware/admin')
-const asyncMiddleware = require('../middleware/async')
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-router.get('/', asyncMiddleware(async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   const genres = await Genre.find().sort('name');
   res.send(genres);
-}));
+});
 
 // 在express 的每一个routers， 中，第一个参数为路由地址， 第二个参数为处理中间件， 第三个是回调函数
 router.post('/', auth, async (req, res) => {
