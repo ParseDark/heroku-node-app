@@ -1,37 +1,29 @@
-const config = require('config')
-const Joi = require('joi');
-require('express-async-errors')
-Joi.objectId = require('joi-objectid')(Joi);
-const mongoose = require('mongoose');
-const genres = require('./routes/genres');
-const customers = require('./routes/customers');
-const movies = require('./routes/movies');
-const rentals = require('./routes/rentals');
-const user = require('./routes/user')
-const auth = require('./routes/auth')
-const error = require('./middleware/error')
 const express = require('express');
+const logger = require('./middleware/logger')
+require('express-async-errors')
+
+
+// 实例化express
 const app = express();
 
-if (!config.get('jwtPrivateKey')) {
-  console.error('Fatal error: jwtPrivateKey is not defined.')
-  process.exit(1) // process Node的全局变量， exit方法， 一个传参， 0表示成功， 0之外表示失败
-  // 设置全局变量的方法： export vidly_jwtPrivateKey=mySecureKey
-}
+// 日志处理
+require('./startup/logging')()
+// 挂载中间件
+require('./startup/routes')(app)
+// 链接数据库
+require('./startup/db')()
+// 检测是否配全局变量(token密钥)
+require('./startup/config')()
+// 引入JOI校验工具
+require('./startup/validation')()
 
-mongoose.connect('mongodb://localhost:27017/testDB')
-  .then(() => console.log('Connected to MongoDB...'))
-  .catch(err => console.error('Could not connect to MongoDB...'));
+// throw new Error('Something is error.')
 
-app.use(express.json());
-app.use('/api/genres', genres);
-app.use('/api/customers', customers);
-app.use('/api/movies', movies);
-app.use('/api/rentals', rentals);
-app.use('/api/users', user);
-app.use('/api/auth', auth);
+// const p = Promise.reject(new Error('run fail'))
+// p.then(() => console.log('some error'))
 
-app.use(error)
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+const port = process.env.PORT || 4000;
+const server = app.listen(port, () => logger.info(`Listening on port ${port}...`));
+
+module.exports = server
