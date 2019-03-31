@@ -1230,3 +1230,11 @@
 {"level":"error","message":"Cannot set headers after they are sent to the clientCannot set headers after they are sent to the client","stack":"Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client\n    at ServerResponse.setHeader (_http_outgoing.js:470:11)\n    at ServerResponse.header (E:\\vscodeDir\\vidly\\node_modules\\express\\lib\\response.js:767:10)\n    at ServerResponse.send (E:\\vscodeDir\\vidly\\node_modules\\express\\lib\\response.js:170:12)\n    at send (E:\\vscodeDir\\vidly\\routes\\returns.js:17:32)"}
 {"message":"Listening on port 4000...","level":"info"}
 {"message":"connected mongodbmongodb://localhost:27017/testDB_tests.....","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"connected mongodbmongodb://localhost:27017/testDB_tests.....","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"connected mongodbmongodb://localhost:27017/testDB_tests.....","level":"info"}
+{"level":"error","message":"Cannot set headers after they are sent to the clientCannot set headers after they are sent to the client","stack":"Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client\n    at ServerResponse.setHeader (_http_outgoing.js:470:11)\n    at ServerResponse.header (E:\\vscodeDir\\vidly\\node_modules\\express\\lib\\response.js:767:10)\n    at ServerResponse.send (E:\\vscodeDir\\vidly\\node_modules\\express\\lib\\response.js:170:12)\n    at send (E:\\vscodeDir\\vidly\\routes\\returns.js:17:32)"}
+{"level":"error","message":"Cannot set headers after they are sent to the clientCannot set headers after they are sent to the client","stack":"Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client\n    at ServerResponse.setHeader (_http_outgoing.js:470:11)\n    at ServerResponse.header (E:\\vscodeDir\\vidly\\node_modules\\express\\lib\\response.js:767:10)\n    at ServerResponse.send (E:\\vscodeDir\\vidly\\node_modules\\express\\lib\\response.js:170:12)\n    at send (E:\\vscodeDir\\vidly\\routes\\returns.js:17:32)"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"connected mongodbmongodb://localhost:27017/testDB_tests.....","level":"info"}
