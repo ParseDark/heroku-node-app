@@ -16,6 +16,8 @@ require('./startup/db')()
 require('./startup/config')()
 // 引入JOI校验工具
 require('./startup/validation')()
+// 开启生产环境配置： http保护 + 代码压缩
+require('./startup/prod')(app)
 
 // throw new Error('Something is error.')
 

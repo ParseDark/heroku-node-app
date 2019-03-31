@@ -7,6 +7,7 @@ const {
 const {
     User
 } = require('../../models/user')
+const {Movie} = require('../../models/movie')
 const mongoose = require('mongoose')
 
 describe('/api/returns', () => {
@@ -14,12 +15,24 @@ describe('/api/returns', () => {
     let customerId
     let movieId
     let rental
+    let movie
 
     beforeEach(async () => {
         server = require('../../index')
         customerId = mongoose.Types.ObjectId()
         movieId = mongoose.Types.ObjectId()
 
+        movie = new Movie({
+            _id: movieId,
+            title: '12345',
+            dailyRentalRate: 2,
+            genre: {
+                name: '12345'
+            },
+            numberInStock: 10
+        })
+
+        await movie.save()
 
         rental = new Rental({
             customer: {
@@ -40,6 +53,7 @@ describe('/api/returns', () => {
     afterEach(async () => {
         await server.close()
         await Rental.remove({})
+        await Movie.remove({})
     })
 
     let token
@@ -144,26 +158,39 @@ describe('/api/returns', () => {
     })
 
 
+    it('increase the stock', async () => {
+        token = new User().generateAuthToken()
+        const res = await exec({
+            customerId,
+            movieId
+        })
+
+        const movieInDb = await Movie.findById(movieId);
+        expect(movieInDb.numberInStock).toBe(movie.numberInStock + 1)
+
+    })
+
+    it('return the rental', async () => {
+        token = new User().generateAuthToken()
+        const res = await exec({
+            customerId,
+            movieId
+        })
+
+        const rentalInDb = await Rental.findById(rental._id)
+
+        expect(res.body).toHaveProperty('dateOut')
+        expect(res.body).toHaveProperty('dateReturned')
+        expect(res.body).toHaveProperty('rentalFee')
+        expect(res.body).toHaveProperty('customer')
+        expect(res.body).toHaveProperty('movie')
+
+    })
+
+
+
 
 })
-// post /api/return {coustomerId, movieId}
-
-// return 401 if client is not logged in
-
-// return 400 if  customerId is not provided
-
-// return 400 if movieId is not provided
-
-// return 404 if not rental found for this customer/move
-
-// return 400 if rental already processd
-
-// return 200 if is valid request
-
-//Set the return data
-
-// Calculate the rental fee
-
 // Increase the stock
 
 // return the rental
