@@ -1,5 +1,6 @@
 const request = require('supertest');
-const moment = request('moment');
+// const moment = request('moment');
+const moment = require('../../node_modules/moment/moment');
 const {
     Rental
 } = require('../../models/rental')
@@ -119,25 +120,28 @@ describe('/api/returns', () => {
         })
 
         const rentalInDb = await Rental.findById(rental._id);
+
+        const diff = new Date() - rentalInDb.dateReturned 
+
         expect(rentalInDb.dateReturned).toBeDefined()
+        expect(diff).toBeLessThan(10 * 1000)
     })
 
-    // it('Calculate the rental fee', async () => {
-    //     rental.dateOut = moment().add(-7, 'days').toDate()
-    //     await rental.save()
 
+    it('should set the rentalFee if input is valid', async () => {
+        rental.dateOut = moment().add(-7, 'days').toDate()
+        await rental.save()
 
-    //     token = new User().generateAuthToken()
-    //     const res = await exec({
-    //         customerId,
-    //         movieId
-    //     })
+        token = new User().generateAuthToken()
+        const res = await exec({
+            customerId,
+            movieId
+        })
 
-    //     const rentalInDb = await Rental.findById(rental._id)
+        const rentalInDb = await Rental.findById(rental._id);
+        expect(rentalInDb.rentalFee).toBeDefined()
 
-    //     expect(rentalInDb.rentalFee).toBeDefined()
-    //     expect(rentalInDb.rentalFee).toBe(14)
-    // })
+    })
 
 
 

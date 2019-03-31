@@ -1,8 +1,8 @@
 const express = require('express');
-const moment = require('moment');
 const router = express.Router();
 const auth = require('../middleware/auth')
 const { Rental } = require('../models/rental')
+const moment = require('moment');
 
 router.post('/', auth, async (req, res) => {
     if(!req.body.customerId) res.status(400).send('customId unprovided.')
@@ -19,7 +19,7 @@ router.post('/', auth, async (req, res) => {
 
     if(rental.dateReturned) return res.status(400).send('return already process')
 
-    rental.dateReturned = 1
+    rental.dateReturned = new Date()
     await rental.save()
 
     return res.status(200).send(rental)
