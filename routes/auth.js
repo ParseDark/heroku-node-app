@@ -6,7 +6,7 @@ const bcreypt = require('bcrypt')
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const Joi = require('Joi')
+// const Joi = require('joi')
 
 // 这里的登录比较简单， 就是用户传入账号和密码， 服务端验证账号和密码， 然后返回true or fales
 router.post('/', async (req, res) => {
