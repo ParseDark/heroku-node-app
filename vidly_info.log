@@ -1981,3 +1981,5 @@
 {"message":"connected mongodbmongodb://localhost:27017/testDB_tests.....","level":"info"}
 {"message":"Listening on port 4000...","level":"info"}
 {"message":"connected mongodbmongodb://localhost:27017/testDB.....","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"connected mongodbmongodb://localhost:27017/testDB.....","level":"info"}
